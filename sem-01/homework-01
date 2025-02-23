@@ -1,0 +1,46 @@
+#include <iostream>
+enum Status
+{
+    Available,
+    Borrowed,
+    Reserved
+};
+struct Book
+{
+    const char* title;
+    const char* author;
+    int publicationYear;
+    Status status;
+};
+struct Library
+{
+    char* name;
+    Book books[10];
+    int bookCount;
+};
+void addBook(Library& lib, const char* title, const char* author, int year)
+{
+    if (lib.bookCount == 10)
+        return;
+    Book toAdd = { title, author, year, Available };
+    lib.books[lib.bookCount++] = toAdd;
+}
+void borrowBook(Book& b)
+{
+    b.status = Borrowed;
+}
+void reserveBook(Book& b)
+{
+    b.status = Reserved;
+}
+void printLibrary(const Library& lib)
+{
+    for (int i = 0; i < 10; i++)
+    {
+        std::cout << "Book " << i << ": " << lib.books->title << " - " << lib.books->status << std::endl;
+    }
+}
+int main()
+{
+    std::cout << "Hello World!\n";
+}
