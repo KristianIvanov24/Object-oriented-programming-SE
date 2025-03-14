@@ -149,7 +149,50 @@ public:
 	}
 };
 
+
+void selectionSortTimes(Time* times, size_t size)
+{
+	for (int i = 0; i < size - 1; i++)
+	{
+		int minIndex = i;
+		for (int j = i + 1; j < size; j++)
+		{
+			if (times[j].isEarlierThan(times[minIndex]))
+			{
+				minIndex = j;
+			}
+		}
+		std::swap(times[i], times[minIndex]);
+	}
+}
+
+void printTimes(Time* times, size_t size)
+{
+	for (size_t i = 0; i < size; i++)
+	{
+		times[i].print();
+		std::cout << std::endl;
+	}
+}
+
 int main()
 {
+	const size_t size = 10;
+	Time times[size] = {
+		Time(10, 30, 45), // 10:30:45
+		Time(6, 15, 20),  // 06:15:20
+		Time(14, 50, 55), // 14:50:55
+		Time(22, 10, 5),  // 22:10:05
+		Time(3, 45, 30),  // 03:45:30
+		Time(18, 25, 40), // 18:25:40
+		Time(8, 55, 12),  // 08:55:12
+		Time(12, 5, 10),  // 12:05:10
+		Time(19, 30, 55), // 19:30:55
+		Time(9, 0, 0)     // 09:00:00
+	};
 
+	selectionSortTimes(times, size);
+	printTimes(times, size);
+
+	return 0;
 }
