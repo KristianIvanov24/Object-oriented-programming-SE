@@ -1,0 +1,5 @@
+﻿  ArithmeticProgression.cpp
+C:\Users\nikne\Desktop\FMI\OOP\PR\pr6\ArithmeticProgression\ArithmeticProgression\ArithmeticProgression.cpp(160,14): warning C4244: '+=': conversion from 'double' to 'int', possible loss of data
+  main.cpp
+  Generating Code...
+  ArithmeticProgression.vcxproj -> C:\Users\nikne\Desktop\FMI\OOP\PR\pr6\ArithmeticProgression\x64\Debug\ArithmeticProgression.exe
