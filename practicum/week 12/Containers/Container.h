@@ -8,6 +8,6 @@ public:
 	virtual size_t count() const = 0;
 	virtual void write() const = 0;
 	virtual Container* clone() const = 0;
-	~Container() = default;
+	virtual ~Container() = default;
 };
 
