@@ -1,0 +1,18 @@
+﻿  Book.cpp
+  Bookstore.cpp
+C:\Users\Катерина\Desktop\fmi\1 kurs 2024-2025\oop\prakt-07\prakt-07\Book.cpp(30,2): error C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Users\Катерина\Desktop\fmi\1 kurs 2024-2025\oop\prakt-07\prakt-07\Book.cpp(33,2): error C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Users\Катерина\Desktop\fmi\1 kurs 2024-2025\oop\prakt-07\prakt-07\Book.cpp(39,15): warning C4244: '=': conversion from 'double' to 'unsigned int', possible loss of data
+C:\Users\Катерина\Desktop\fmi\1 kurs 2024-2025\oop\prakt-07\prakt-07\Bookstore.cpp(19,5): error C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  Item.cpp
+  MyString.cpp
+C:\Users\Катерина\Desktop\fmi\1 kurs 2024-2025\oop\prakt-07\prakt-07\MyString.cpp(57,34): warning C4267: 'argument': conversion from 'size_t' to 'unsigned int', possible loss of data
+C:\Users\Катерина\Desktop\fmi\1 kurs 2024-2025\oop\prakt-07\prakt-07\MyString.cpp(153,36): warning C4267: 'argument': conversion from 'size_t' to 'unsigned int', possible loss of data
+C:\Users\Катерина\Desktop\fmi\1 kurs 2024-2025\oop\prakt-07\prakt-07\MyString.cpp(182,35): warning C4267: 'argument': conversion from 'size_t' to 'unsigned int', possible loss of data
+  prakt-07.cpp
+  ShoppingCart.cpp
+C:\Users\Катерина\Desktop\fmi\1 kurs 2024-2025\oop\prakt-07\prakt-07\ShoppingCart.cpp(88,12): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
+  Generating Code...
+C:\Users\Катерина\Desktop\fmi\1 kurs 2024-2025\oop\prakt-07\prakt-07\ShoppingCart.cpp(52,1): error C4716: 'ShoppingCart::operator=': must return a value
+C:\Users\Катерина\Desktop\fmi\1 kurs 2024-2025\oop\prakt-07\prakt-07\ShoppingCart.cpp(47,1): error C4716: 'ShoppingCart::operator=': must return a value
+C:\Users\Катерина\Desktop\fmi\1 kurs 2024-2025\oop\prakt-07\prakt-07\ShoppingCart.cpp(117,1): warning C4715: 'ShoppingCart::getPriceOf': not all control paths return a value
