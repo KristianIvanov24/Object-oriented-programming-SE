@@ -1,0 +1,36 @@
+﻿  MyPair.cpp
+  prakt-13.cpp
+C:\Users\grade\source\repos\prakt-13\MyPair.hpp(40,1): error C2447: '{': missing function header (old-style formal list?)
+  (compiling source file 'MyPair.cpp')
+  
+C:\Users\grade\source\repos\prakt-13\MyPair.cpp(3,29): error C2065: 'U': undeclared identifier
+C:\Users\grade\source\repos\prakt-13\MyPair.cpp(3,32): error C2065: 'V': undeclared identifier
+C:\Users\grade\source\repos\prakt-13\MyPair.cpp(3,22): error C2923: 'MyPair': 'U' is not a valid template type argument for parameter 'U'
+      C:\Users\grade\source\repos\prakt-13\MyPair.cpp(3,29):
+      see declaration of 'U'
+  
+C:\Users\grade\source\repos\prakt-13\MyPair.cpp(3,22): error C2923: 'MyPair': 'V' is not a valid template type argument for parameter 'V'
+      C:\Users\grade\source\repos\prakt-13\MyPair.cpp(3,32):
+      see declaration of 'V'
+  
+C:\Users\grade\source\repos\prakt-13\MyPair.cpp(3,42): error C2146: syntax error: missing ')' before identifier 'lhs'
+C:\Users\grade\source\repos\prakt-13\MyPair.cpp(3,42): error C3646: 'lhs': unknown override specifier
+C:\Users\grade\source\repos\prakt-13\MyPair.cpp(3,6): error C2805: binary 'operator <' has too few parameters
+C:\Users\grade\source\repos\prakt-13\MyPair.cpp(3,60): error C2065: 'U': undeclared identifier
+C:\Users\grade\source\repos\prakt-13\MyPair.cpp(3,63): error C2065: 'V': undeclared identifier
+C:\Users\grade\source\repos\prakt-13\MyPair.cpp(3,53): error C2923: 'MyPair': 'U' is not a valid template type argument for parameter 'U'
+      C:\Users\grade\source\repos\prakt-13\MyPair.cpp(3,60):
+      see declaration of 'U'
+  
+C:\Users\grade\source\repos\prakt-13\MyPair.cpp(3,53): error C2923: 'MyPair': 'V' is not a valid template type argument for parameter 'V'
+      C:\Users\grade\source\repos\prakt-13\MyPair.cpp(3,63):
+      see declaration of 'V'
+  
+C:\Users\grade\source\repos\prakt-13\MyPair.cpp(3,65): error C2143: syntax error: missing ';' before '&'
+C:\Users\grade\source\repos\prakt-13\MyPair.cpp(3,47): warning C4228: nonstandard extension used: qualifiers after comma in declarator list are ignored
+C:\Users\grade\source\repos\prakt-13\MyPair.cpp(3,70): error C2059: syntax error: ')'
+C:\Users\grade\source\repos\prakt-13\MyPair.cpp(3,67): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+C:\Users\grade\source\repos\prakt-13\MyPair.cpp(5,5): error C2059: syntax error: 'return'
+C:\Users\grade\source\repos\prakt-13\MyPair.cpp(6,1): error C2059: syntax error: '}'
+C:\Users\grade\source\repos\prakt-13\MyPair.cpp(6,1): error C2143: syntax error: missing ';' before '}'
+  Generating Code...
