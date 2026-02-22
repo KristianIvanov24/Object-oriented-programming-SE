@@ -1,0 +1,145 @@
+#include <iostream>
+
+namespace constants {
+    const int MAX_TITLE = 64;
+    const int MAX_NAME = 32;
+    const int MAX_BOOKS = 10;
+}
+
+enum class Status {
+    Available,
+    Borrowed,
+    Reserved
+};
+
+class Book {
+public:
+    char title[constants::MAX_TITLE];
+    char author[constants::MAX_NAME];
+    unsigned int publicationYear;
+    Status status;
+};
+
+class Library {
+public:
+    char name[constants::MAX_NAME];
+    Book books[constants::MAX_BOOKS];
+    unsigned int bookCount;
+};
+
+namespace libActions {
+    void addBook(Library& lib, const char* t, const char* a, int pbYear) {
+        if (pbYear < 0) {
+            return;
+        }
+
+        if (lib.bookCount == constants::MAX_BOOKS) {
+            return;
+        }
+
+        for (int i = 0; i < constants::MAX_TITLE; i++) {
+            lib.books[lib.bookCount].title[i] = t[i];
+            if (t[i] == '\0') {
+                break;
+            }
+        }
+
+        for (int i = 0; i < constants::MAX_NAME; i++) {
+            lib.books[lib.bookCount].author[i] = a[i];
+            if (a[i] == '\0') {
+                break;
+            }
+        }
+
+        lib.books[lib.bookCount].publicationYear = pbYear;
+        lib.books[lib.bookCount].status = Status::Available;
+        lib.bookCount++;
+    }
+
+    void borrowBook(Book& b) {
+        if (b.status == Status::Reserved) {
+            return;
+        }
+        else {
+            b.status = Status::Borrowed;
+        }
+    }
+
+    void reserveBook(Book& b) {
+        if (b.status == Status::Available) {
+            b.status = Status::Reserved;
+        }
+        else {
+            return;
+        }
+    }
+
+    void printLibrary(const Library& lib) {
+        for (int i = 0; i < lib.bookCount; i++) {
+            std::cout << "Title: " << lib.books[i].title << std::endl;
+            std::cout << "Author: " << lib.books[i].author << std::endl;
+            std::cout << "Publication year: " << lib.books[i].publicationYear << std::endl;
+            switch (lib.books[i].status) {
+            case Status::Available:
+                std::cout << "Status: Available" << std::endl;
+                break;
+            case Status::Borrowed:
+                std::cout << "Status: Borrowed" << std::endl;
+                break;
+            case Status::Reserved:
+                std::cout << "Status: Reserved" << std::endl;
+                break;
+            }
+            std::cout << std::endl;
+        }
+    }
+
+    void printLibraryAlphabetically(const Library& lib) {
+        Book sorted[constants::MAX_BOOKS];
+
+        for (unsigned int i = 0; i < lib.bookCount; i++) {
+            sorted[i] = lib.books[i];
+        }
+
+        for (int i = 0; i < lib.bookCount - 1; i++) {
+            for (int j = 0; j < lib.bookCount - i - 1; j++) {
+                int k = 0;
+                while (sorted[j].title[k] != '\0' &&
+                    sorted[j + 1].title[k] != '\0' &&
+                    sorted[j].title[k] == sorted[j + 1].title[k]) {
+                    k++;
+                }
+
+                if (sorted[j].title[k] > sorted[j + 1].title[k]) {
+                    Book temp = sorted[j];
+                    sorted[j] = sorted[j + 1];
+                    sorted[j + 1] = temp;
+                }
+            }
+        }
+
+        for (unsigned int i = 0; i < lib.bookCount; i++) {
+            std::cout << "Title: " << sorted[i].title << std::endl;
+            std::cout << "Author: " << sorted[i].author << std::endl;
+            std::cout << "Publication year: " << sorted[i].publicationYear << std::endl;
+
+            switch (sorted[i].status) {
+            case Status::Available:
+                std::cout << "Status: Available" << std::endl;
+                break;
+            case Status::Borrowed:
+                std::cout << "Status: Borrowed" << std::endl;
+                break;
+            case Status::Reserved:
+                std::cout << "Status: Reserved" << std::endl;
+                break;
+            }
+            std::cout << std::endl;
+        }
+    }
+}
+
+int main()
+{
+    std::cout << "Hello World!";
+}
