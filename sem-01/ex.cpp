@@ -52,17 +52,19 @@ namespace str
     }
 }
 
+enum class Status
+{
+    Available,
+    Borrowed,
+    Reserved
+};
+
 struct Book
 {
     char title[MAX_TITLE_SIZE];
     char author[MAX_AUTHOR_SIZE];
     int publicationYear;
-    enum class Status
-    {
-        Available,
-        Borrowed,
-        Reserved
-    } status;
+    Status status;
 };
 
 struct Library
@@ -88,11 +90,11 @@ const char *statusToString(const Book &book)
 {
     switch (book.status)
     {
-        case Book::Status::Available:
+        case Status::Available:
             return "Available";
-        case Book::Status::Borrowed:
+        case Status::Borrowed:
             return "Borrowed";
-        case Book::Status::Reserved:
+        case Status::Reserved:
             return "Reserved";
         default:
             return "Unknown status";
@@ -118,28 +120,28 @@ void addBook(Library &library, const char *title, const char *author, int public
     str::strcpy(newBook.author, author);
 
     newBook.publicationYear = publicationYear;
-    newBook.status = Book::Status::Available;
+    newBook.status = Status::Available;
     library.bookCount++;
 }
 
 void borrowBook(Book &book)
 {
-    if (book.status != Book::Status::Available)
+    if (book.status != Status::Available)
     {
         std::cout << "Book isn't available" << std::endl;
         return;
     }
-    book.status = Book::Status::Borrowed;
+    book.status = Status::Borrowed;
 }
 
 void reserveBook(Book &book)
 {
-    if (book.status != Book::Status::Available)
+    if (book.status != Status::Available)
     {
         std::cout << "Book isn't available" << std::endl;
         return;
     }
-    book.status = Book::Status::Reserved;
+    book.status = Status::Reserved;
 }
 
 void printBook(const Book &book)
