@@ -2,3 +2,4 @@
 
 
 - [**Тема 1:**](https://github.com/KristianIvanov24/Object-oriented-programming-SE/tree/main/sem-01) Структури/Класове и обединения. Пространство от имена и енумерации.
+- [**Тема 2:**](https://github.com/KristianIvanov24/Object-oriented-programming-SE/tree/main/sem-02) Потоци. Работа с файлове.
