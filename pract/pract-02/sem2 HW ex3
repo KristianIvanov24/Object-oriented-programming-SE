@@ -1,0 +1,229 @@
+
+
+#include <iostream>
+#include <fstream>
+#include <cstring>
+
+namespace CONSTANTS {
+    const int max_students_name = 50;
+    const int faculty_lenght = 10;
+}
+
+struct Student {
+    char name[CONSTANTS::max_students_name + 1];
+    char facultyNumber[CONSTANTS::faculty_lenght + 1];
+    double grade;
+};
+
+Student student[CONSTANTS::max_students_name];
+int countStudents = 0;
+
+void trim(char* str) {
+    int len = strlen(str);
+
+    while (len > 0 && (str[len - 1] == ' ' || str[len - 1] == '\n' || str[len - 1] == '\r')) {
+        str[--len] = '\0';
+    }
+
+    int start = 0;
+    while (str[start] == ' ')
+        start++;
+
+    if (start > 0) {
+        int i = 0;
+        while (str[start + i] != '\0') {
+            str[i] = str[start + i];
+            i++;
+        }
+        str[i] = '\0';
+    }
+}
+
+double stringToDouble(const char* str) {
+    double result = 0.0;
+    double fraction = 0.1;
+    bool negative = false;
+    int i = 0;
+
+    if (str[i] == '-') {
+        negative = true;
+        i++;
+    }
+
+    while (str[i] >= '0' && str[i] <= '9') {
+        result = result * 10 + (str[i] - '0');
+        i++;
+    }
+
+    if (str[i] == '.') {
+        i++;
+        while (str[i] >= '0' && str[i] <= '9') {
+            result += (str[i] - '0') * fraction;
+            fraction *= 0.1;
+            i++;
+        }
+    }
+
+    if (negative)
+        result = -result;
+
+    return result;
+}
+
+bool loadFile(const char* filename) {
+    std::ifstream ifs(filename);
+    if (!ifs)
+        return false;
+
+    char line[256];
+    countStudents = 0;
+
+    ifs.getline(line, 256);
+    ifs.getline(line, 256);
+
+    while (ifs.getline(line, 256) && countStudents < CONSTANTS::max_students_name) {
+
+        int pipeCount = 0;
+        int start = -1;
+
+        char name[CONSTANTS::max_students_name + 1] = { 0 };
+        char faculty[CONSTANTS::faculty_lenght + 1] = { 0 };
+        char gradeStr[20] = { 0 };
+
+        int nameIndex = 0;
+        int facultyIndex = 0;
+        int gradeIndex = 0;
+
+        for (int i = 0; line[i] != '\0'; i++) {
+
+            if (line[i] == '|') {
+                pipeCount++;
+                start = i + 1;
+                continue;
+            }
+
+            if (pipeCount == 1) { 
+                if (nameIndex < 50)
+                    name[nameIndex++] = line[i];
+            }
+            else if (pipeCount == 2) { 
+                if (facultyIndex < 10)
+                    faculty[facultyIndex++] = line[i];
+            }
+            else if (pipeCount == 3) { 
+                if (gradeIndex < 19)
+                    gradeStr[gradeIndex++] = line[i];
+            }
+        }
+
+        trim(name);
+        trim(faculty);
+        trim(gradeStr);
+
+        if (strlen(faculty) == 10) {
+            strcpy_s(student[countStudents].name, name);
+            strcpy_s(student[countStudents].facultyNumber, faculty);
+            student[countStudents].grade = stringToDouble(gradeStr);
+            countStudents++;
+        }
+    }
+
+    ifs.close();
+    return true;
+}
+
+int findStudent(const char* facultyNumber) {
+    for (int i = 0; i < countStudents; i++) {
+        if (strcmp(student[i].facultyNumber, facultyNumber) == 0)
+            return i;
+    }
+    return -1;
+}
+
+void printStudent(const char* facultyNumber) {
+    int index = findStudent(facultyNumber);
+    if (index == -1) {
+        std::cout << "Student not found.\n";
+        return;
+    }
+
+    std::cout << "Name: " << student[index].name
+        << ", Faculty Number: " << student[index].facultyNumber
+        << ", Grade: " << student[index].grade << "\n";
+}
+
+void updateGrade(const char* facultyNumber, double newGrade) {
+    int index = findStudent(facultyNumber);
+    if (index == -1) {
+        std::cout << "Student not found.\n";
+        return;
+    }
+
+    student[index].grade = newGrade;
+    std::cout << "Grade updated successfully.\n";
+}
+
+void saveFile(const char* filename) {
+    std::ofstream ofs(filename);
+
+    ofs << "| Name | Faculty Number | Grade |\n";
+    ofs << "|------|----------------|-------|\n";
+
+    for (int i = 0; i < countStudents; i++) {
+        ofs << "| "
+            << student[i].name << " | "
+            << student[i].facultyNumber << " | "
+            << student[i].grade << " |\n";
+    }
+
+    ofs.close();
+    std::cout << "File " << filename << " was saved successfully!\n";
+}
+
+int main()
+{
+    char filename[100];
+
+    std::cout << "Open file:\n>";
+    std::cin >> filename;
+
+    if (!loadFile(filename)) {
+        std::cout << "Cannot open file.\n";
+        return 1;
+    }
+
+    std::cout << "File successfully opened!\n";
+
+    char command[50];
+
+    while (true) {
+        std::cout << ">";
+        std::cin >> command;
+
+        if (strcmp(command, "print") == 0) {
+            char fn[CONSTANTS::faculty_lenght];
+            std::cin >> fn;
+            printStudent(fn);
+        }
+        else if (strcmp(command, "update_grade") == 0) {
+            char fn[CONSTANTS::faculty_lenght];
+            double grade;
+            std::cin >> fn >> grade;
+            updateGrade(fn, grade);
+        }
+        else if (strcmp(command, "save") == 0) {
+            char saveName[100];
+            std::cin >> saveName;
+            saveFile(saveName);
+        }
+        else if (strcmp(command, "exit") == 0) {
+            break;
+        }
+        else {
+            std::cout << "Unknown command.\n";
+        }
+    }
+
+    return 0;
+}
+
