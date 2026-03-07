@@ -1,0 +1,195 @@
+#include <iostream>
+
+namespace constants {
+    const unsigned MAX_SEC = 24*3600;
+    const unsigned HOUR_TO_SEC = 3600;
+    const unsigned HOUR_TO_MIN = 60;
+    const unsigned MIN_TO_SEC = 60;
+}
+
+class Time {
+    unsigned hours;
+    unsigned minutes;
+    unsigned seconds;
+
+    
+
+public:
+    Time() : hours(0), minutes(0), seconds(0) {}
+
+    Time(unsigned h, unsigned m, unsigned s) {
+        const unsigned givenTime = h * constants::HOUR_TO_SEC + m * constants::MIN_TO_SEC + s;
+        if (givenTime > constants::MAX_SEC) {
+            std::cout << "Invalid time!" << std::endl;
+            return;
+        }
+        else if (givenTime == constants::MAX_SEC) {
+            hours = 0;
+            minutes = 0;
+            seconds = 0;
+        }
+        else {
+            hours = h;
+            minutes = m;
+            seconds = s;
+        }
+    }
+
+    int toSeconds() const {
+        return hours * constants::HOUR_TO_SEC + minutes * constants::MIN_TO_SEC + seconds;
+    }
+
+    Time timeToMidnight() const {
+        unsigned diff = constants::MAX_SEC - this->toSeconds();
+        if (diff == constants::MAX_SEC) {
+            diff = 0;
+        }
+
+        unsigned h = diff / constants::HOUR_TO_SEC;
+        unsigned m = (diff % constants::HOUR_TO_SEC) / constants::HOUR_TO_MIN;
+        unsigned s = diff % constants::MIN_TO_SEC;
+
+        return Time(h, m, s);
+    }
+
+    void plusOneSec() {
+        unsigned time = this->toSeconds();
+        time++;
+
+        if (time == constants::MAX_SEC) {
+            hours = 0;
+            minutes = 0;
+            seconds = 0;
+        }
+        else {
+            hours = time / constants::HOUR_TO_SEC;
+            minutes = (time % constants::HOUR_TO_SEC) / constants::HOUR_TO_MIN;
+            seconds = time % constants::MIN_TO_SEC;
+        }
+    }
+
+    bool isItDinnerTime() const {
+        const unsigned begSec = 20 * constants::HOUR_TO_SEC + 30 * constants::MIN_TO_SEC;
+        const unsigned endSec = 22 * constants::HOUR_TO_SEC;
+        const unsigned thisTime = this->toSeconds();
+
+        if (thisTime >= begSec && thisTime <= endSec) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    bool isItPartyTime() const {
+        const unsigned begSec = 23 * constants::HOUR_TO_SEC;
+        const unsigned endSec = 6 * constants::HOUR_TO_SEC;
+        const unsigned thisTime = this->toSeconds();
+
+        if (thisTime >= begSec || thisTime <= endSec) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    Time difference(const Time& other) {
+        const unsigned otherTime = other.toSeconds();
+        const unsigned thisTime = this->toSeconds();
+        unsigned diff = 0;
+
+        if (thisTime >= otherTime) {
+            diff = thisTime - otherTime;
+        }
+        else {
+            diff = otherTime - thisTime;
+        }
+
+        unsigned h = diff / constants::HOUR_TO_SEC;
+        unsigned m = (diff % constants::HOUR_TO_SEC) / constants::HOUR_TO_MIN;
+        unsigned s = diff % constants::MIN_TO_SEC;
+
+        return Time(h, m, s);
+    }
+
+    bool isItEarlierThan(const Time& other) {
+       return this->toSeconds() < other.toSeconds() ? true : false;
+    }
+
+    void print() {
+        std::cout << (hours < 10 ? "0" : "") << hours << ":"
+            << (minutes < 10 ? "0" : "") << minutes << ":"
+            << (seconds < 10 ? "0" : "") << seconds << std::endl;
+    }
+};
+
+int getMax(Time* arr, int n) {
+    int max = arr[0].toSeconds();
+
+    for (int i = 1; i < n; i++)
+        if (arr[i].toSeconds() > max)
+            max = arr[i].toSeconds();
+
+    return max;
+}
+
+void countingSortForRadixSort(Time* arr, size_t n, int exp) {
+
+    Time copy_arr[10];
+    int count[10] = {0};
+
+    for (int i = 0; i < n; i++) {
+        count[(arr[i].toSeconds() / exp) % 10]++;
+    }
+
+    for (int i = 1; i < 10; i++) {
+        count[i] += count[i - 1];
+    }
+
+    for (int i = n - 1; i >= 0; i--) {
+        copy_arr[count[(arr[i].toSeconds() / exp) % 10] - 1] = arr[i];
+        count[(arr[i].toSeconds() / exp) % 10]--;
+    }
+
+    for (int i = 0; i < n; i++) {
+        arr[i] = copy_arr[i];
+    }
+}
+
+void radixSort(Time* arr, size_t n) {
+
+    int max = getMax(arr, n);
+
+    for (int exp = 1; max / exp > 0; exp *= 10) {
+        countingSortForRadixSort(arr, n, exp);
+    }
+}
+
+int main() {
+
+    Time times[10] = {
+        {12,30,10},
+        {5,12,50},
+        {23,10,5},
+        {8,20,11},
+        {20,40,0},
+        {15,55,1},
+        {3,45,9},
+        {18,10,22},
+        {21,0,0},
+        {11,11,11}
+    };
+
+    radixSort(times, 10);
+
+    for (int i = 0; i < 10; i++) {
+        times[i].print();
+    }
+
+    std::cout << "Sorted times:\n";
+
+    for (int i = 0; i < 10; i++) {
+        times[i].print();
+    }
+}
