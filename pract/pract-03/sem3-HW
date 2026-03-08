@@ -1,0 +1,96 @@
+#include <iostream>
+
+class Time {
+private:
+    int hours;
+    int minutes;
+    int seconds;
+
+    int toSeconds() const {
+        return hours * 3600 + minutes * 60 + seconds;
+    }
+
+public:
+    Time() {
+        hours = 0;
+        minutes = 0;
+        seconds = 0;
+    }
+
+    Time(int h, int m, int s) {
+        hours = h;
+        minutes = m;
+        seconds = s;
+    }
+
+    Time timeToMidnight() const {
+        int total = 24 * 3600 - toSeconds();
+        if (total == 86400) total = 0;
+
+        int h = total / 3600;
+        total %= 3600;
+        int m = total / 60;
+        int s = total % 60;
+
+        return Time(h, m, s);
+    }
+
+    void addSecond() {
+        seconds++;
+        if (seconds >= 60) {
+            seconds = 0;
+            minutes++;
+        }
+        if (minutes >= 60) {
+            minutes = 0;
+            hours++;
+        }
+        if (hours >= 24) {
+            hours = 0;
+        }
+    }
+
+    bool isDinnerTime() const {
+        int t = toSeconds();
+        int start = 20 * 3600 + 30 * 60;
+        int end = 22 * 3600;
+        return t >= start && t <= end;
+    }
+
+    bool isPartyTime() const {
+        int t = toSeconds();
+        int start = 23 * 3600;
+        int end = 6 * 3600;
+
+        return (t >= start || t <= end);
+    }
+
+    Time difference(const Time& other) const {
+        int diff = abs(toSeconds() - other.toSeconds());
+
+        int h = diff / 3600;
+        diff %= 3600;
+        int m = diff / 60;
+        int s = diff % 60;
+
+        return Time(h, m, s);
+    }
+
+    bool isEarlier(const Time& other) const {
+        return toSeconds() < other.toSeconds();
+    }
+
+    void print() const {
+        std::cout << (hours < 10 ? "0" : "") << hours << ":"
+            << (minutes < 10 ? "0" : "") << minutes << ":"
+            << (seconds < 10 ? "0" : "") << seconds;
+    }
+};
+
+
+int main()
+{
+    
+}
+
+
