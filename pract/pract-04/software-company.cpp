@@ -23,6 +23,30 @@ enum class ProgrammingLanguage
     JAVASCRIPT
 };
 
+namespace Validation 
+{
+    bool isValidName(const char* name) 
+    {
+        return name && strlen(name) <= Constants::NAME_MAX_LEN;
+    }
+
+    bool isValidAge(unsigned age) 
+    {
+        return age >= Constants::MIN_AGE;
+    }
+
+    bool isValidSalary(unsigned salary) 
+    {
+        return salary >= Constants::MIN_SALARY 
+            && salary <= Constants::MAX_SALARY;
+    }
+
+    bool isValidLanguage(ProgrammingLanguage language) 
+    {
+        return (int)language >= 0 && (int)language < Constants::PROGRAMMING_LANGUAGES_COUNT;
+    }
+}
+
 const char* languageToString(ProgrammingLanguage language)
 {
     switch (language)
@@ -64,31 +88,9 @@ public:
         setSalary(salary);
     }
 
-    void setName(const char* name)
-    {
-        if (!name || strlen(name) > Constants::NAME_MAX_LEN)
-        {
-            strncpy(this->name, Constants::DEFAULT_NAME, Constants::NAME_MAX_LEN);
-            return;
-        }
-
-        strncpy(this->name, name, Constants::NAME_MAX_LEN);
-    }
-
-    void setAge(unsigned age)
-    {
-        if (age < Constants::MIN_AGE)
-        {
-            this->age = Constants::MIN_AGE;
-            return;
-        }
-
-        this->age = age;
-    }
-
     void setSalary(unsigned salary)
     {
-        if (salary < Constants::MIN_SALARY || salary > Constants::MAX_SALARY)
+        if (!Validation::isValidSalary(salary))
         {
             this->salary = Constants::MIN_SALARY;
             return;
@@ -114,11 +116,21 @@ public:
 
     void learnProgrammingLanguage(ProgrammingLanguage language)
     {
+        if (!Validation::isValidLanguage(language)) 
+        {
+            return;
+        }
+
         languages[getIndexByLanguage(language)] = true;
     }
 
-    unsigned knowsProgrammingLanguage(ProgrammingLanguage language) const
+    bool knowsProgrammingLanguage(ProgrammingLanguage language) const
     {
+        if (!Validation::isValidLanguage(language)) 
+        {
+            return false;
+        }
+
         return languages[getIndexByLanguage(language)];
     }
 
@@ -129,6 +141,29 @@ public:
     }
 
 private:
+    void setName(const char* name)
+    {
+        if (!Validation::isValidName(name))
+        {
+            strncpy(this->name, Constants::DEFAULT_NAME, Constants::NAME_MAX_LEN);
+            return;
+        }
+
+        strncpy(this->name, name, Constants::NAME_MAX_LEN);
+    }
+
+    void setAge(unsigned age)
+    {
+        if (!Validation::isValidAge(age))
+        {
+            this->age = Constants::MIN_AGE;
+            return;
+        }
+
+        this->age = age;
+    }
+
+
     size_t getIndexByLanguage(ProgrammingLanguage language) const
     {
         return (size_t)language;
@@ -136,7 +171,7 @@ private:
 
     void printLanguages() const
     {
-        for (unsigned i = 0; i < Constants::PROGRAMMING_LANGUAGES_COUNT; i++)
+        for (size_t i = 0; i < Constants::PROGRAMMING_LANGUAGES_COUNT; i++)
         {
             if (languages[i])
             {
@@ -190,7 +225,7 @@ public:
             return false;
         }
 
-        Programmer &programmer = programmers[programmerIndex];
+        Programmer& programmer = programmers[programmerIndex];
         unsigned newSalary = formula(programmer.getSalary());
         programmer.setSalary(newSalary);
 
@@ -243,7 +278,7 @@ private:
         return sum * 1.0 / programmersCount;
     }
 
-    void sortBy(bool (*pred)(const Programmer& , const Programmer&))
+    void sortBy(bool (*pred)(const Programmer&, const Programmer&))
     {
         if (programmersCount == 0)
         {
@@ -262,3 +297,4 @@ private:
         }
     }
 };
+
