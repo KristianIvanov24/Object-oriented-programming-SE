@@ -1,0 +1,32 @@
+
+
+#include <iostream>
+#include <fstream>
+//ex1
+size_t fileSize(std::ifstream& ifs) {
+    size_t currPos = ifs.tellg();
+    ifs.seekg(0, std::ios::end);
+    size_t size = ifs.tellg();
+    ifs.seekg(currPos);
+    return size;
+}
+
+//ex2
+// Програма за отпечатване на собствения си код
+int main()
+{
+    std::ifstream ifs(__FILE__);
+
+    if (!ifs.is_open()) {
+        std::cout << "Erorr" << std::endl;
+    }
+
+    char ch;
+    while (ifs.get(ch)) {
+        std::cout << ch;
+    }
+
+    ifs.close();
+    return 0;
+}
+
