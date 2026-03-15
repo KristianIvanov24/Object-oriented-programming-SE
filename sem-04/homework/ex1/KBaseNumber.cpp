@@ -105,30 +105,18 @@ int KBaseNumber::compareWith(const KBaseNumber &other) const {
 }
 
 void KBaseNumber::update(const char *newNumber, unsigned newK) {
-    setNumber(newNumber);
     setBase(newK);
+    setNumber(newNumber);
 }
 
 void KBaseNumber::print() const {
     std::cout << number << "(" << base << ")" << std::endl;
 }
 
-bool KBaseNumber::saveToFile(const char *fileName) const {
-    std::ofstream file(fileName, std::ios::binary);
-    if (!file.is_open()) {
-        return false;
-    }
-
+void KBaseNumber::saveToFile(std::ofstream& file) const {
     file.write((const char *) this, sizeof(KBaseNumber));
-    return true;
 }
 
-void KBaseNumber::readFromFile(const char *fileName) {
-    std::ifstream file(fileName, std::ios::binary);
-    if (!file.is_open()) {
-        *this = KBaseNumber();
-        return;
-    }
-
+void KBaseNumber::readFromFile(std::ifstream& file) {
     file.read((char *) this, sizeof(KBaseNumber));
 }

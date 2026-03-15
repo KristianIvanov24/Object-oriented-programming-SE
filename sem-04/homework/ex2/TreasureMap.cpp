@@ -19,7 +19,7 @@ void TreasureMap::sort(bool(*cmp)(const Treasure &, const Treasure &)) {
     }
 }
 
-bool TreasureMap::add(const Treasure &treasure) {
+bool TreasureMap::addTreasure(const Treasure &treasure) {
     if (treasureCount >= constants::MAX_TREASURES) {
         return false;
     }
@@ -30,7 +30,7 @@ bool TreasureMap::add(const Treasure &treasure) {
 
 bool TreasureMap::addTreasure(const char *name, int x, int y, int value) {
     Treasure t = Treasure(name, x, y, value);
-    return add(t);
+    return addTreasure(t);
 }
 
 bool TreasureMap::remove(const char *name) {

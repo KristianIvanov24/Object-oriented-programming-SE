@@ -33,6 +33,6 @@ public:
     void update(const char *, unsigned);
     void print() const;
 
-    bool saveToFile(const char *) const;
-    void readFromFile(const char *);
+    void saveToFile(std::ofstream&) const;
+    void readFromFile(std::ifstream&);
 };

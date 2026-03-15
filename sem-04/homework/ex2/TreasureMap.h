@@ -10,9 +10,9 @@ class TreasureMap
 
     size_t findBy(const char *) const;
     void sort(bool (*cmp)(const Treasure &, const Treasure &));
-    bool add(const Treasure &);
 
 public:
+    bool addTreasure(const Treasure &);
     bool addTreasure(const char *, int, int, int);
     bool remove(const char *);
     size_t findBy(int, int) const;
