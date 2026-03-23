@@ -114,6 +114,18 @@ Bitset Bitset::unionSets(const Bitset &lhs, const Bitset &rhs) {
     return res;
 }
 
+// алтернативна версия на unionSets
+Bitset Bitset::unionSets(const Bitset &lhs, const Bitset &rhs) {
+    const Bitset &bigger  = lhs.getN() > rhs.getN() ? lhs : rhs;
+    const Bitset &smaller = lhs.getN() > rhs.getN() ? rhs : lhs;
+
+    Bitset res(bigger);
+    for (unsigned i = 0; i < smaller.bucketsCount; i++) {
+        res.data[i] |= smaller.data[i];
+    }
+    return res;
+}
+
 Bitset Bitset::intersection(const Bitset &lhs, const Bitset &rhs) {
     Bitset res(std::min(lhs.getN(), rhs.getN()));
 
