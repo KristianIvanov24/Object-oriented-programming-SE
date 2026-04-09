@@ -1,39 +1,35 @@
-﻿#include "SoftwareCompany.h"
+#include "Dealership.h"
 #include <iostream>
 
-unsigned raise10Percent(unsigned salary) {
-    return salary + salary / 10;
-}
-
 int main() {
-    Programmer p1("Alice", 25, 3000);
-    p1.learnLanguage(Language::CPP);
-    p1.learnLanguage(Language::PYTHON);
+    Car c1("Toyota", "Corolla", EngineType::GASOLINE, 25000);
+    Car c2("Toyota", "Yaris", EngineType::DIESEL, 18000);
+    Car c3("BMW", "M3", EngineType::GASOLINE, 80000);
+    Car c4("Tesla", "Model 3", EngineType::ELECTRICITY, 60000);
+    Car c5("Toyota", "Supra", EngineType::GASOLINE, 55000);
 
-    Programmer p2("Bob", 30, 4500);
-    p2.learnLanguage(Language::JAVA);
+    Car allCars[] = { c1, c2, c3, c4, c5 };
+    unsigned count = 5;
 
-    Programmer p3("Carol", 22, 2800);
-    p3.learnLanguage(Language::CPP);
-    p3.learnLanguage(Language::JAVASCRIPT);
+    std::cout << "=== All cars ===\n";
+    Dealership d1(allCars, count);
+    d1.printByModel("Corolla");
 
-    SoftwareCompany company;
-    company.addProgrammer(p1);
-    company.addProgrammer(p2);
-    company.addProgrammer(p3);
+    std::cout << "=== Only Gasoline ===\n";
+    Dealership d2(allCars, count, EngineType::GASOLINE);
+    std::cout << "Count: " << d2.getCarsCount() << "\n";
 
-    std::cout << "=== All Programmers ===\n";
-    company.printProgrammers();
+    std::cout << "\n=== Test drive all ===\n";
+    d1.testDriveAll();
 
-    std::cout << "\n=== C++ Programmers ===\n";
-    company.printProgrammersByLang(Language::CPP);
+    std::cout << "\n=== Most expensive ===\n";
+    Car* best = d1.getMostExpensive();
+    if (best) best->print();
 
-    std::cout << "\nAverage salary: " << company.getAverageSalary() << "\n";
-    std::cout << "Average age: " << company.getAverageAge() << "\n";
+    std::cout << "\n=== Avg price Toyota ===\n";
+    std::cout << d1.getAveragePriceByBrand(c1) << " lv\n";
 
-    company.setSalaryByFormula("Alice", raise10Percent);
-
-    std::cout << "\n=== After sorting by salary ===\n";
-    company.sortBySalary();
-    company.printProgrammers();
+    std::cout << "\n=== Remove Corolla ===\n";
+    d1.removeCar("Toyota", "Corolla");
+    std::cout << "Cars remaining: " << d1.getCarsCount() << "\n";
 }
