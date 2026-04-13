@@ -1,35 +1,34 @@
-#include "Dealership.h"
-#include <iostream>
+﻿#include <iostream>
+#include "GradeReport.h"
+#include "Validation.h"
 
 int main() {
-    Car c1("Toyota", "Corolla", EngineType::GASOLINE, 25000);
-    Car c2("Toyota", "Yaris", EngineType::DIESEL, 18000);
-    Car c3("BMW", "M3", EngineType::GASOLINE, 80000);
-    Car c4("Tesla", "Model 3", EngineType::ELECTRICITY, 60000);
-    Car c5("Toyota", "Supra", EngineType::GASOLINE, 55000);
+    int g1[] = { 85, 90, 57, 92, 88 };
+    int g2[] = { 70, 65, 80, 95 };
+    int bad[] = { 85, 150, -5 };
 
-    Car allCars[] = { c1, c2, c3, c4, c5 };
-    unsigned count = 5;
+    GradeReport a(g1, 5, "Grade A");
+    GradeReport b(g2, 4, "Grade B");
+    GradeReport invalid(bad, 3, "Bad");
 
-    std::cout << "=== All cars ===\n";
-    Dealership d1(allCars, count);
-    d1.printByModel("Corolla");
+    if (!a.isValid()) {
+        std::cout << "A is not valid!\n";
+        return -1;
+    }
 
-    std::cout << "=== Only Gasoline ===\n";
-    Dealership d2(allCars, count, EngineType::GASOLINE);
-    std::cout << "Count: " << d2.getCarsCount() << "\n";
+    if (!b.isValid()) {
+        std::cout << "B is not valid!\n";
+        return -1;
+    }
 
-    std::cout << "\n=== Test drive all ===\n";
-    d1.testDriveAll();
+    if (!invalid.isValid())
+        std::cout << "Invalid has not been created!\n";
 
-    std::cout << "\n=== Most expensive ===\n";
-    Car* best = d1.getMostExpensive();
-    if (best) best->print();
+    std::cout << a.getName() << "\n";
+    std::cout << a.getAverage() << "\n";
 
-    std::cout << "\n=== Avg price Toyota ===\n";
-    std::cout << d1.getAveragePriceByBrand(c1) << " lv\n";
-
-    std::cout << "\n=== Remove Corolla ===\n";
-    d1.removeCar("Toyota", "Corolla");
-    std::cout << "Cars remaining: " << d1.getCarsCount() << "\n";
+    GradeReport combined = GradeReport::merge(a, b);
+    if (combined.isValid())
+        std::cout << combined.getName() << "\n";
+        std::cout << combined.getAverage() << "\n";
 }
