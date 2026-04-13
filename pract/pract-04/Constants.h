@@ -1,11 +1,7 @@
 #pragma once
 
-namespace Constants {
-    const size_t MAX_NAME_LEN = 32;
-    const unsigned MIN_AGE = 18;
-    const unsigned MIN_SALARY = 2500;
-    const unsigned MAX_SALARY = 5000;
-    const char* const DEFAULT_NAME = "Unknown";
-    const size_t LANGUAGES_COUNT = 5;
-    const unsigned MAX_PROGRAMMERS = 50;
+namespace PlaylistConstants {
+    const unsigned MAX_NAME_LEN = 64;
+    const unsigned MAX_CONTENT_LEN = 256;
+    const unsigned MAX_SONGS = 30;
 }
