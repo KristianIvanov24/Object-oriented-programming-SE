@@ -10,3 +10,4 @@
 - [**Тема 7:**](https://github.com/KristianIvanov24/Object-oriented-programming-SE/tree/main/sem.07) Приятелски класове и функции. Ключова дума auto. Функции от по-висок ред. Предефиниране на оператори. 
 - [**Тема 8:**](https://github.com/KristianIvanov24/Object-oriented-programming-SE/tree/main/sem.08) Rule of Zero. String.
 - [**Тема 9:**](https://github.com/KristianIvanov24/Object-oriented-programming-SE/tree/main/sem.09) Шаблони.
+- [**Тема 10:**](https://github.com/KristianIvanov24/Object-oriented-programming-SE/tree/main/sem-10) Умни указатели.
