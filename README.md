@@ -11,3 +11,4 @@
 - [**Тема 8:**](https://github.com/KristianIvanov24/Object-oriented-programming-SE/tree/main/sem.08) Rule of Zero. String.
 - [**Тема 9:**](https://github.com/KristianIvanov24/Object-oriented-programming-SE/tree/main/sem.09) Шаблони.
 - [**Тема 10:**](https://github.com/KristianIvanov24/Object-oriented-programming-SE/tree/main/sem-10) Умни указатели.
+- [**Тема 11:**](https://github.com/KristianIvanov24/Object-oriented-programming-SE/tree/main/sem-11) Наследяване.
