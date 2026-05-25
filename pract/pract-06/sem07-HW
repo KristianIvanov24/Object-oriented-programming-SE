@@ -1,0 +1,107 @@
+#include "SpecialCustomFunction.h"
+
+void SpecialCustomFunction::copyFrom(const SpecialCustomFunction& other)
+{
+	size = other.size;
+	funcPrint = other.funcPrint;
+	specialValues = new int[size];
+
+	for (size_t i = 0; i < size; i++) {
+		specialValues[i] = other.specialValues[i];
+	}
+}
+
+void SpecialCustomFunction::free()
+{
+	delete[] specialValues;
+}
+
+bool SpecialCustomFunction::isSpecial(int x) const
+{
+	for (size_t i = 0; i < size; i++) {
+		if (specialValues[i] == x) {
+			return true;
+		}
+	}
+	return false;
+}
+
+SpecialCustomFunction::SpecialCustomFunction(int* arr, size_t n, int(*f)(int))
+{
+	size = n;
+	funcPrint = f;
+	specialValues = new int[size];
+
+	for (int i = 0; i < size; i++) {
+		specialValues[i] = arr[i];
+	}
+}
+
+SpecialCustomFunction::SpecialCustomFunction(const SpecialCustomFunction& other)
+{
+	copyFrom(other);
+}
+
+SpecialCustomFunction& SpecialCustomFunction::operator=(const SpecialCustomFunction& other)
+{
+	if (this != &other) {
+		free();
+		copyFrom(other);
+	}
+
+	return *this;
+}
+
+SpecialCustomFunction::~SpecialCustomFunction()
+{
+	free();
+}
+
+int SpecialCustomFunction::operator()(int x) const
+{
+	if (isSpecial(x)) {
+		return x * x;
+	}
+	return funcPrint(x);
+}
+
+SpecialCustomFunction& SpecialCustomFunction::operator++()
+{
+	for (int i = 0; i < size; i++) {
+		specialValues[i]++;
+	}
+	return *this;
+}
+
+SpecialCustomFunction SpecialCustomFunction::operator++(int x)
+{
+	SpecialCustomFunction temp(*this);
+	++(*this);
+	return temp;
+}
+
+SpecialCustomFunction& SpecialCustomFunction::operator--()
+{
+	for (size_t i = 0; i < size; i++) {
+		specialValues[i]--;
+	}
+	return *this;
+}
+
+SpecialCustomFunction SpecialCustomFunction::operator--(int x)
+{
+	SpecialCustomFunction temp(*this);
+	--(*this);
+	return temp;
+}
+
+SpecialCustomFunction SpecialCustomFunction::operator!() const
+{
+	SpecialCustomFunction result(*this);
+
+	for (size_t i = 0; i < result.size; i++) {
+		result.specialValues[i] = -result.specialValues[i];
+	}
+
+	return result;
+}
