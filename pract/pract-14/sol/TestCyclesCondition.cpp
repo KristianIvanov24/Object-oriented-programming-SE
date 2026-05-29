@@ -20,9 +20,9 @@ std::optional<std::string> TestCyclesCondition::checkRocketClearance(const Rocke
     if (rocket.getTestCycles() < requiredTestCycles)
     {
         return "Rocket cycles were "
-            + std::to_string(rocket.getTestCycles())
-            + " but must be "
-            + std::to_string(requiredTestCycles);
+               + std::to_string(rocket.getTestCycles())
+               + " but must be "
+               + std::to_string(requiredTestCycles);
 
         // or
         // return std::format(

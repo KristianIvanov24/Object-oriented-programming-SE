@@ -5,7 +5,7 @@ Test::Test(const std::string& name, int testCycles, int result, bool isRequired)
 {
 }
 
-std::string Test::getName() const
+const std::string& Test::getName() const
 {
     return name;
 }

@@ -1,6 +1,30 @@
 #include "LaunchClearanceService.h"
 #include <stdexcept>
 
+void LaunchClearanceService::copyFrom(const LaunchClearanceService& other)
+{
+    launchConditions.clear();
+    launchConditions.reserve(other.launchConditions.size());
+    for (const auto& launchCondition : other.launchConditions)
+    {
+        launchConditions.push_back(launchCondition->clone());
+    }
+}
+
+LaunchClearanceService::LaunchClearanceService(const LaunchClearanceService& other)
+{
+    copyFrom(other);
+}
+
+LaunchClearanceService& LaunchClearanceService::operator=(const LaunchClearanceService& other)
+{
+    if (this != &other)
+    {
+        copyFrom(other);
+    }
+    return *this;
+}
+
 void LaunchClearanceService::addCondition(const std::unique_ptr<LaunchCondition>& launchCondition)
 {
     if (launchCondition == nullptr)

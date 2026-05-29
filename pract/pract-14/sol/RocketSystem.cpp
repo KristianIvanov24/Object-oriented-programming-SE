@@ -17,6 +17,15 @@ void RocketSystem::addRocket(const Rocket& rocket)
     rockets.push_back(rocket);
 }
 
+void RocketSystem::addRocket(Rocket&& rocket)
+{
+    if (hasRocket(rocket.getSerial()))
+    {
+        throw std::invalid_argument("Rocket already exists");
+    }
+    rockets.push_back(std::move(rocket));
+}
+
 bool RocketSystem::hasRocket(const std::string& serial) const
 {
     return findRocketBySerial(serial) != nullptr;
@@ -26,7 +35,10 @@ const Rocket* RocketSystem::findRocketBySerial(const std::string& serial) const
 {
     auto it = std::ranges::find_if(
         rockets,
-        [&serial](const Rocket& rocket) { return rocket.getSerial() == serial; });
+        [&serial](const Rocket& rocket)
+        {
+            return rocket.getSerial() == serial;
+        });
 
     return it != rockets.end() ? &(*it) : nullptr;
 }
@@ -35,7 +47,10 @@ void RocketSystem::removeRocket(const std::string& serial)
 {
     auto removed = std::erase_if(
         rockets,
-        [&serial](const Rocket& rocket) { return rocket.getSerial() == serial; });
+        [&serial](const Rocket& rocket)
+        {
+            return rocket.getSerial() == serial;
+        });
 
     if (removed == 0)
     {

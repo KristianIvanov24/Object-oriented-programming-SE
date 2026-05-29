@@ -17,7 +17,7 @@ AverageReliabilityCondition::AverageReliabilityCondition(double requiredAverageR
     setRequiredAverageReliability(requiredAverageReliability);
 }
 
-std::optional<std::string> AverageReliabilityCondition::checkRocketClearance(const Rocket &rocket) const
+std::optional<std::string> AverageReliabilityCondition::checkRocketClearance(const Rocket& rocket) const
 {
     if (rocket.averageReliability() < requiredAverageReliability)
     {
