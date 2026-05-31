@@ -14,3 +14,5 @@
 - [**Тема 11:**](https://github.com/KristianIvanov24/Object-oriented-programming-SE/tree/main/sem-11) Наследяване.
 - [**Тема 12:**](https://github.com/KristianIvanov24/Object-oriented-programming-SE/tree/main/sem-12) Изключения.
 - [**Тема 13:**](https://github.com/KristianIvanov24/Object-oriented-programming-SE/tree/main/sem-13) Полиморфизъм. Абстрактни класове.
+- [**Тема 14:**](https://github.com/KristianIvanov24/Object-oriented-programming-SE/tree/main/sem-14) Колекция от обекти в полиморфна йерархия. Множествено наследяване. Диамантен проблем.
+- [**Тема 15:**](https://github.com/KristianIvanov24/Object-oriented-programming-SE/tree/main/sem-15) Type casting. Увод в Design Patterns. SOLID принципи.
